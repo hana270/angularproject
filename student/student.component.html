@@ -1,0 +1,99 @@
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<nav class="navbar navbar-light bg-dark">
+    <div class="container-fluid">
+        <h2 class="text-light text-primary py-3">STUDENT MANAGEMENT SYSTEM</h2>
+        <div class="d-flex">
+            <button class="btn btn-success" (click)="add()" data-toggle="modal" data-target="#exampleModal">Add Student</button>
+            <button class="btn btn-warning">Logout</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Table -->
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th scope="col">s.Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">City</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of allstudentdata">
+            <td>{{data.id}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.mobile}}</td>
+            <td>{{data.city}}</td>
+            <td>
+                <button class="btn btn-info" (click)="edit(data)" data-toggle="modal" data-target="#exampleModal">Edit</button>
+                <button class="btn btn-danger" (click)="deletestud(data)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="color: blue;">
+                <h5 class="modal-title" id="exampleModalLabel"  style="color: black;font-size: 26px;margin-left: 62px;font-weight: 620;">
+                    Student Management SYSTEM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                <form [formGroup]="formValue">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Name</label>
+                      <input type="name" formControlName="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your Name">
+                        <small *ngIf="formValue.get('name')?.invalid && formValue.get('name')?.touched" class="text-danger">Name is Required</small>
+                    
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small *ngIf="formValue.get('email')?.invalid && formValue.get('email')?.touched" class="text-danger">Email is Required</small>
+                    </div>
+                    <br>
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mobile</label>
+                        <input type="number" formControlName="mobile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Mobile Number">
+                        <small *ngIf="formValue.get('mobile')?.invalid && formValue.get('mobile')?.touched" class="text-danger">Mobile number is Required</small>
+                    </div>
+
+                    <br>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">City</label>
+                        <input type="name" formControlName="city" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter City Name">
+                        <small *ngIf="formValue.get('city')?.invalid && formValue.get('city')?.touched" class="text-danger">City is Required</small>
+                    </div>
+                      
+                </form>
+            </div>
+
+
+            <div class="modal-footer" style="color: blue;">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                <button *ngIf="showadd" type="button" (click)="addstudent()" class="btn btn-success">Add</button>
+                <button *ngIf="showupdate" type="button" (click)="update()" class="btn btn-success">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
